@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<script defer src="./index.js"></script>
+<html>
+    <head>
+        <title>Conversion Memorizer</title>
+        <style>
+			.btn {
+			  border: none;
+			  padding: 15% 15%;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			  font-size: 64px;
+			  margin: 4px 2px;
+			  cursor: pointer;
+			  background-color: Gainsboro;
+			}
+
+			.buttonGroup {
+				text-align: center;
+				margin-top: 5%;
+			}
+
+			.titleH1 {
+				text-align: center;
+				font-size: 85px;
+			}
+
+			.screenBox {
+				position: relative;
+				width: 80%; 
+				height: 25rem; 
+				background-color: grey; 
+				margin: auto;
+			}
+
+			.vertical-center {
+				margin-inline: 10%;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			
+			#screen {
+				font-size: 64px;
+			}
+		</style>
+    </head>
+<body>
+    <h1 class="titleH1"><u>Conversion Memorizer</u></h1>
+    <div class="screenBox">
+    	<div class="vertical-center">
+    		<h1 id="screen"></h1>
+    	</div>
+    </div>
+    <div class="buttonGroup">
+    	<div>
+    	<button class="btn" type="button" id="btn1"><h1></h1></button>
+    	<button class="btn" type="button" id="btn2"><h1></h1></button>
+    </div>
+    <div>
+    	 <button class="btn" type="button" id="btn3"><h1></h1></button>
+    	 <button class="btn" type="button" id="btn4"><h1></h1></button>
+    </div>
+    </div>
+</body>
+</html> 
