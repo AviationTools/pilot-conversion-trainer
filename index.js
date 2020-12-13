@@ -5,18 +5,42 @@ let btn2 = document.getElementById("btn2");
 let btn3 = document.getElementById("btn3");
 let btn4 = document.getElementById("btn4");
 
+let next = document.getElementById("next");
+let previous = document.getElementById("previous");
+let hintButton = document.getElementById("hintButton");
+
 let screen = document.getElementById("screen");
+let hint = document.getElementById("hint");
 let fromNr;
 let returnObj;
+let randomElement;
+let randomNumber;
+
+let questionHistory = [];
+let historyCount = 0;
+
+let timeOut;
 
 
 function randomizer() {
+	clearTimeout(timeOut);
+	resetButtonColors();
+	console.log("New Question!");
 	fromNr = Math.floor(Math.random()*10) * 50 + 100;
 	returnObj = randomMethod(fromNr);
 	//DOM Update
 	screen.innerHTML = fromNr + " " + returnObj.from + " = ";
 	screen.innerHTML += "___" + returnObj.to;
+	hint.innerHTML = "";
 	
+	historyCount++;
+	questionHistory.push({
+		"from": fromNr,
+		"conversion": returnObj.from,
+		"to": returnObj.to,
+		"answer": returnObj.calc
+	});
+
 	randomizeOptionBtn(Math.round(returnObj.calc));
 }
 function randomMethod(number) {
@@ -76,6 +100,7 @@ function randomMethod(number) {
 
 
 function randomizeOptionBtn(number) {
+	randomNumber = number;
 	let numberArray = [];
 	for (var i = 0; i < 4; i++) {
 		if(i == 0) {
@@ -86,7 +111,7 @@ function randomizeOptionBtn(number) {
 		}
 	}
 	
-	let randomElement = shuffle(numberArray);
+	randomElement = shuffle(numberArray);
 	btn1.innerText = randomElement[0];
 	btn2.innerText = randomElement[1];
 	btn3.innerText = randomElement[2];
@@ -96,60 +121,109 @@ function randomizeOptionBtn(number) {
 	btn2.setAttribute("style", "font: black;"); 
 	btn3.setAttribute("style", "font: black;"); 
 	btn4.setAttribute("style", "font: black;"); 
+}
 
-	btn1.addEventListener("click", function() {
-		console.log(number + " / " + randomElement[1]);
+btn1.addEventListener("click", function() {
 		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[0] + " " + returnObj.to;
 		//Check if  Correct
-		if(checkIfCorrect(number == randomElement[0])) {
-			btn1.setAttribute("style", "background-color: green;");
-			randomizer();
+		if(checkIfCorrect(randomNumber, randomElement[0])) {
+			console.log("true")
+			//Color to Green("True")
+			btn1.classList.remove("btn-primary");
+			btn1.classList.add('btn-success');
+			//Set Color to Default
+			timeOut = setTimeout(function(){
+				btn1.classList.remove("btn-success");
+				btn1.classList.add('btn-primary');
+				randomizer();
+			}, 500);
 		} else {
-			btn1.setAttribute("style", "background-color: red;");
-			btn1.setAttribute("style", "background-color: Gainsboro;");
+			console.log("false")
+			btn1.classList.remove("btn-primary");
+			btn1.classList.add('btn-danger');
 		}
 	});
 
 	btn2.addEventListener("click", function() {
 		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[1] + " " + returnObj.to;
 		//Check if  Correct
-		if(checkIfCorrect(number == randomElement[1])) {
-			btn2.setAttribute("style", "background-color: green;");	
-			randomizer();
+		if(checkIfCorrect(randomNumber, randomElement[1])) {
+			console.log("true")
+			//Color to Green("True")
+			btn2.classList.remove("btn-primary");
+			btn2.classList.add('btn-success');
+			//Set Color to Default
+			timeOut = setTimeout(function(){
+				btn2.classList.remove("btn-success");
+				btn2.classList.add('btn-primary');
+				randomizer();
+			}, 500);
 		} else {
-			btn2.setAttribute("style", "background-color: red;");
-			btn2.setAttribute("style", "background-color: Gainsboro;");
+			console.log("false")
+			btn2.classList.remove("btn-primary");
+			btn2.classList.add('btn-danger');
 		}
 	});
 
 	btn3.addEventListener("click", function() {
 		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[2] + " " + returnObj.to;
 		//Check if  Correct
-		if(checkIfCorrect(number == randomElement[2])) {
-			btn3.setAttribute("style", "background-color: green;");
-			randomizer();
+		if(checkIfCorrect(randomNumber, randomElement[2])) {
+			console.log("true")
+			//Color to Green("True")
+			btn3.classList.remove("btn-primary");
+			btn3.classList.add('btn-success');
+			//Set Color to Default
+			timeOut = setTimeout(function(){
+				btn3.classList.remove("btn-success");
+				btn3.classList.add('btn-primary');
+				randomizer();
+			}, 500);
 		} else {
-			btn3.setAttribute("style", "background-color: red;");
-			btn3.setAttribute("style", "background-color: Gainsboro;");
+			console.log("false")
+			btn3.classList.remove("btn-primary");
+			btn3.classList.add('btn-danger');
 		}
 	});
 
 	btn4.addEventListener("click", function() {
 		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[3] + " " + returnObj.to;
 		//Check if  Correct
-		if(checkIfCorrect(number == randomElement[3])) {
-			btn4.setAttribute("style", "background-color: green;"); 
-			randomizer();
+		if(checkIfCorrect(randomNumber, randomElement[3])) {
+			console.log("true")
+			//Color to Green("True")
+			btn4.classList.remove("btn-primary");
+			btn4.classList.add('btn-success');
+			//Set Color to Default
+			timeOut = setTimeout(function(){
+				btn4.classList.remove("btn-success");
+				btn4.classList.add('btn-primary');
+				randomizer();
+			}, 500);
 		} else {
-			btn4.setAttribute("style", "background-color: red;");
-			btn4.setAttribute("style", "background-color: Gainsboro;");
+			console.log("false")
+			btn4.classList.remove("btn-primary");
+			btn4.classList.add('btn-danger');
 		}
 	});
-}
+
+	//Functionality Buttons
+	previous.addEventListener("click", function() {
+		//Not Ready yet
+		historyCount
+		let previousQuestion = questionHistory[historyCount-1]
+		screen.innerHTML = previousQuestion.from + " " + previousQuestion.conversion + " = " + ___ + " " + previousQuestion.to;
+	});
+
+	hintButton.addEventListener("click", function() {
+		hint.innerHTML = "(" + returnObj.help + ")";
+	});
+
+	next.addEventListener("click", function() {
+		randomizer();
+	});
 
 function checkIfCorrect(correctNumber, testNumber) {
-	console.log(correctNumber);
-	console.log(testNumber);
 	if(correctNumber == testNumber) {
 		return true;
 	} else {
@@ -175,6 +249,20 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function resetButtonColors() {
+	btn1.classList.remove("btn-danger");
+	btn1.classList.add('btn-primary');
+
+	btn2.classList.remove("btn-danger");
+	btn2.classList.add('btn-primary');
+
+	btn3.classList.remove("btn-danger");
+	btn3.classList.add('btn-primary');
+
+	btn4.classList.remove("btn-danger");
+	btn4.classList.add('btn-primary');
 }
 
 

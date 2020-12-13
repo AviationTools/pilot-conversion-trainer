@@ -1,67 +1,59 @@
-<!DOCTYPE html>
-<script defer src="./index.js"></script>
-<html>
-    <head>
-        <title>Conversion Memorizer</title>
-        <style>
-			.btn {
-			  border: none;
-			  padding: 15% 15%;
-			  text-align: center;
-			  text-decoration: none;
-			  display: inline-block;
-			  font-size: 64px;
-			  margin: 4px 2px;
-			  cursor: pointer;
-			  background-color: Gainsboro;
-			}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-			.buttonGroup {
-				text-align: center;
-				margin-top: 5%;
-			}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-			.titleH1 {
-				text-align: center;
-				font-size: 85px;
-			}
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
-			.screenBox {
-				position: relative;
-				width: 80%; 
-				height: 25rem; 
-				background-color: grey; 
-				margin: auto;
-			}
+    <!-- Font Awsome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-			.vertical-center {
-				margin-inline: 10%;
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-			}
-			
-			#screen {
-				font-size: 64px;
-			}
-		</style>
-    </head>
-<body>
-    <h1 class="titleH1"><u>Conversion Memorizer</u></h1>
-    <div class="screenBox">
-    	<div class="vertical-center">
-    		<h1 id="screen"></h1>
-    	</div>
-    </div>
-    <div class="buttonGroup">
-    	<div>
-    	<button class="btn" type="button" id="btn1"><h1></h1></button>
-    	<button class="btn" type="button" id="btn2"><h1></h1></button>
-    </div>
-    <div>
-    	 <button class="btn" type="button" id="btn3"><h1></h1></button>
-    	 <button class="btn" type="button" id="btn4"><h1></h1></button>
-    </div>
-    </div>
-</body>
-</html> 
+    <!-- Custom JS -->
+    <script defer src="./index.js"></script>
+    
+   <title>Conversion Memorizer</title>
+  </head>
+  <body style="margin: 5%">
+  	<h1 class="text-center">Conversion Memorizer</h1>
+  	<div class="card"></div>
+
+  	<blockquote class="blockquote text-center bg-secondary" style="margin: 5%; height: 10em;">
+  		<h2 id="screen" class="my-5"></h2>
+  		<p id="hint"></p>
+  	</blockquote>
+
+  	<div class="row">
+		<button id="btn1" class="btn btn-primary btn-lg btn-block my-1" type="button">Button</button>
+		<button id="btn2" class="btn btn-primary btn-lg btn-block my-1" type="button">Button</button>
+		<button id="btn3" class="btn btn-primary btn-lg btn-block my-1" type="button">Button</button>
+		<button id="btn4" class="btn btn-primary btn-lg btn-block my-1" type="button">Button</button>
+  	</div>
+
+  	<div class="row" style="margin-top: 2%;">
+  		
+  		<div class="col text-center">
+  			<button id="previous" class="btn btn-primary" type="button">
+  				<i class="fas fa-chevron-left"></i>
+  			</button>
+  		</div>
+  		<div class="col text-center">
+  			<button id="hintButton" class="btn btn-primary" type="button">
+  				<i class="fas fa-question"></i>
+  			</button>
+  		</div>
+  		<div class="col text-center">
+  			<button id="next" class="btn btn-primary" type="button">
+  				<i class="fas fa-chevron-right"></i>
+  			</button>
+  		</div>
+
+  	</div>
+
+  </body>
+</html>
