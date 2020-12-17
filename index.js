@@ -1,5 +1,3 @@
-//c zu f muss max 60 Grad oder F equivalent
-
 let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
 let btn3 = document.getElementById("btn3");
@@ -11,11 +9,14 @@ let hintButton = document.getElementById("hintButton");
 
 let screen = document.getElementById("screen");
 let hint = document.getElementById("hint");
-let fromNr;
-let returnObj;
+
+//Result (Object)
+let randomReturnNumber;
+let returnResult;
+//Random (Button)
 let randomElement;
 let randomNumber;
-
+//History
 let questionHistory = [];
 let historyCount = 0;
 
@@ -26,74 +27,72 @@ function randomizer() {
 	clearTimeout(timeOut);
 	resetButtonColors();
 	console.log("New Question!");
-	fromNr = Math.floor(Math.random()*10) * 50 + 100;
-	returnObj = randomMethod(fromNr);
+
+	returnResult = randomMethod();
+	randomReturnNumber = returnResult.randomNumber;
+
 	//DOM Update
-	screen.innerHTML = fromNr + " " + returnObj.from + " = ";
-	screen.innerHTML += "___" + returnObj.to;
+	screen.innerHTML = randomReturnNumber + " " + returnResult.units.from + " = ";
+	screen.innerHTML += "___" + returnResult.units.to;
 	hint.innerHTML = "";
 	
 	historyCount++;
 	questionHistory.push({
-		"from": fromNr,
-		"conversion": returnObj.from,
-		"to": returnObj.to,
-		"answer": returnObj.calc
+		"from": randomReturnNumber,
+		"conversion": returnResult.units.from,
+		"to": returnResult.units.to,
+		"answer": returnResult.calc
 	});
 
-	randomizeOptionBtn(Math.round(returnObj.calc));
+	randomizeOptionBtn(Math.round(returnResult.calc));
 }
-function randomMethod(number) {
+
+function specificRandomNumber(max, min) {
+	return Math.round(Math.floor(Math.random() * (max - min) + min) / 10) * 10;
+}
+
+function randomMethod() {
 	let randomNr = Math.floor(Math.random() * 6) + 1;
 	let secondRandomNr = Math.floor(Math.random() * 2) + 1;
 	
+	console.log(randomNr)
+	console.log(secondRandomNr)
+
 	if (randomNr == 1) {
 		if(secondRandomNr == 1) {
-			let calculationReturn = calculation.nmToKm(number);
-			return calculationReturn;
+			return calculation.nmToKm();
 		} else {
-			let calculationReturn = calculation.kmToNm(number);
-			return calculationReturn;
+			return calculation.kmToNm();
 		}
 	} else if(randomNr == 2) {
 		if(secondRandomNr == 1) {
-			let calculationReturn = calculation.feetToMeter(number);
-			return calculationReturn;
+			return calculation.feetToMeter();
 		} else {
-			let calculationReturn = calculation.meterToFeet(number);
-			return calculationReturn;
+			return calculation.meterToFeet();
 		}
 	} else if(randomNr == 3) {
 		if(secondRandomNr == 1) {
-			let calculationReturn = calculation.ktToKmh(number);
-			return calculationReturn;
+			return calculation.ktToKmh();
 		} else {
-			let calculationReturn = calculation.kmhToKt(number);
-			return calculationReturn;
+			return calculation.kmhToKt();
 		}
 	} else if(randomNr == 4) {
 		if(secondRandomNr == 1) {
-			let calculationReturn = calculation.celciusToFahrenheit(number);
-			return calculationReturn;
+			return calculation.celciusToFahrenheit();
 		} else {
-			let calculationReturn = calculation.fahrenheitToCelcius(number);
-			return calculationReturn;
+			return calculation.fahrenheitToCelcius();
 		}
 	} else if(randomNr == 5) {
 		if(secondRandomNr == 1) {
-			let calculationReturn = calculation.poundsToKg(number);
-			return calculationReturn;
+			return calculation.poundsToKg();
 		} else {
-			let calculationReturn = calculation.kgToPounds(number);
-			return calculationReturn;
+			return calculation.kgToPounds();
 		}
 	} else {
 		if(secondRandomNr == 1) {
-			let calculationReturn = calculation.galToLiter(number);
-			return calculationReturn;
+			return calculation.galToLiter();
 		} else {
-			let calculationReturn = calculation.literToGal(number);
-			return calculationReturn;
+			return calculation.literToGal();
 		}
 	}
 }
@@ -124,7 +123,7 @@ function randomizeOptionBtn(number) {
 }
 
 btn1.addEventListener("click", function() {
-		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[0] + " " + returnObj.to;
+		screen.innerHTML = randomReturnNumber + " " + returnResult.units.from + " = " + randomElement[0] + " " + returnResult.units.to;
 		//Check if  Correct
 		if(checkIfCorrect(randomNumber, randomElement[0])) {
 			console.log("true")
@@ -145,7 +144,7 @@ btn1.addEventListener("click", function() {
 	});
 
 	btn2.addEventListener("click", function() {
-		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[1] + " " + returnObj.to;
+		screen.innerHTML = randomReturnNumber + " " + returnResult.units.from + " = " + randomElement[1] + " " + returnResult.units.to;
 		//Check if  Correct
 		if(checkIfCorrect(randomNumber, randomElement[1])) {
 			console.log("true")
@@ -166,7 +165,7 @@ btn1.addEventListener("click", function() {
 	});
 
 	btn3.addEventListener("click", function() {
-		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[2] + " " + returnObj.to;
+		screen.innerHTML = randomReturnNumber + " " + returnResult.units.from + " = " + randomElement[2] + " " + returnResult.units.to;
 		//Check if  Correct
 		if(checkIfCorrect(randomNumber, randomElement[2])) {
 			console.log("true")
@@ -187,7 +186,7 @@ btn1.addEventListener("click", function() {
 	});
 
 	btn4.addEventListener("click", function() {
-		screen.innerHTML = fromNr + " " + returnObj.from + " = " + randomElement[3] + " " + returnObj.to;
+		screen.innerHTML = randomReturnNumber + " " + returnResult.units.from + " = " + randomElement[3] + " " + returnResult.units.to;
 		//Check if  Correct
 		if(checkIfCorrect(randomNumber, randomElement[3])) {
 			console.log("true")
@@ -216,7 +215,7 @@ btn1.addEventListener("click", function() {
 	});
 
 	hintButton.addEventListener("click", function() {
-		hint.innerHTML = "(" + returnObj.help + ")";
+		hint.innerHTML = returnResult.help;
 	});
 
 	next.addEventListener("click", function() {
@@ -267,125 +266,175 @@ function resetButtonColors() {
 
 
 class MassystemIcao {
-  
-  //Strecken
-  nmToKm(nm) {
-  	let obj = {
-  		calc: nm * 2 * 0.9,
-  		from: "nm",
-  		to: "km",
-  		help: "nm * 2 * 0.9"
-  	};
-  	return obj;
+  getRandomNumberInRange(max, min) {
+  	return Math.round(Math.floor(Math.random() * (max - min) + min) / 10) * 10;
   }
-  kmToNm(km) {
-  	let obj = {
-  		calc: km / 2 * 1.1,
-  		from: "km",
-  		to: "nm",
-  		help: "km / 2 * 1.1"
-  	};
-  	return obj;
+  //Strecken
+  nmToKm() {
+    const random = this.getRandomNumberInRange(500, 50);     
+
+    return {
+        units: {
+            from: "nm",
+            to: "km"
+        },
+        help: "nm * 2 * 0.9",
+        calc: random * 2 * 0.9,
+        randomNumber: random
+    };
+  }
+  kmToNm() {
+  	const random = this.getRandomNumberInRange(500, 50);     
+
+    return {
+        units: {
+            from: "km",
+            to: "nm"
+        },
+        help: "km / 2 * 1.1",
+        calc: random / 2 * 1.1,
+        randomNumber: random
+    };
   }
   
   //Höhen
-  feetToMeter(ft) {
-  	let obj = {
-  		calc: ft / 10  * 3,
-  		from: "feet",
-  		to: "meters",
-  		help: "ft / 10  * 3"
-  	};
-  	return obj;
+  feetToMeter() {
+  	const random = this.getRandomNumberInRange(30000, 1000);     
+
+    return {
+        units: {
+            from: "feet",
+            to: "meters"
+        },
+        help: "ft / 10 * 3",
+        calc: random / 10 * 3,
+        randomNumber: random
+    };
   }
-  meterToFeet(m) {
-  	let obj = {
-  		calc: m / 3  * 10,
-  		from: "meters",
-  		to: "feet",
-  		help: "m / 3  * 10"
-  	};
-  	return obj;
+  meterToFeet() {
+  	const random = this.getRandomNumberInRange(10000, 1000);     
+
+    return {
+        units: {
+            from: "meters",
+            to: "feet"
+        },
+        help: "m / 3 * 10",
+        calc: random / 3 * 10,
+        randomNumber: random
+    };
   }
   
   //Speeds
-  ktToKmh(kt) {
-  	let obj = {
-  		calc: kt * 2 * 0.9,
-  		from: "kts",
-  		to: "kmh",
-  		help: "kt * 2 * 0.9"
-  	};
-  	return obj;
+  ktToKmh() {
+  	const random = this.getRandomNumberInRange(600, 100);     
+
+    return {
+        units: {
+            from: "kts",
+            to: "kmh"
+        },
+        help: "kt * 2 * 0.9",
+        calc: random * 2 * 0.9,
+        randomNumber: random
+    };
   }
-  kmhToKt(kmh) {
-  	let obj = {
-  		calc: kmh / 2 * 1.1,
-  		from: "kmh",
-  		to: "kts",
-  		help: "kmh / 2 * 1.1"
-  	};
-  	return obj;
+  kmhToKt() {
+  	const random = this.getRandomNumberInRange(300, 100);     
+
+    return {
+        units: {
+            from: "kmh",
+            to: "kts"
+        },
+        help: "kmh / 2 * 1.1",
+        calc: random / 2 * 1.1,
+        randomNumber: random
+    };
   }
 
   //Temperatur
-  celciusToFahrenheit(c) {
-  	let obj = {
-  		calc: (c * 9 / 5) + 32,
-  		from: "celcius",
-  		to: "fahrenheit",
-  		help: "(c * 9 / 5) + 32"
-  	};
-  	return obj;
+  celciusToFahrenheit() {
+  	const random = this.getRandomNumberInRange(100, 0);     
+
+    return {
+        units: {
+            from: "celcius",
+            to: "fahrenheit"
+        },
+        help: "(c * 9 / 5) + 32",
+        calc: (random * 9 / 5) + 32,
+        randomNumber: random
+    };
   }
-  fahrenheitToCelcius(f) {
-  	let obj = {
-  		calc: (f - 32) * 5 / 9,
-  		from: "fahrenheit",
-  		to: "celcius",
-  		help: "(f - 32) * 5 / 9"
-  	};
-  	return obj;
+  fahrenheitToCelcius() {
+  	const random = this.getRandomNumberInRange(60, -20);     
+
+    return {
+        units: {
+            from: "fahrenheit",
+            to: "celcius"
+        },
+        help: "(f - 32) * 5 / 9",
+        calc: (random - 32) * 5 / 9,
+        randomNumber: random
+    };
   }
 
   //Gewicht
-  poundsToKg(p) {
-  	let obj = {
-  		calc: p / 2 * 0.9,
-  		from: "pounds",
-  		to: "kgs",
-  		help: "p / 2 * 0.9"
-  	};
-  	return obj;
+  poundsToKg() {
+  	const random = this.getRandomNumberInRange(10000, 100);     
+
+    return {
+        units: {
+            from: "pounds",
+            to: "kgs"
+        },
+        help: "p / 2 * 0.9",
+        calc: random / 2 * 0.9,
+        randomNumber: random
+    };
   }
-  kgToPounds(kg) {
-  	let obj = {
-  		calc: kg * 2 * 1.1,
-  		from: "kgs",
-  		to: "pounds",
-  		help: "kg * 2 * 1.1"
-  	};
-  	return obj;
+  kgToPounds() {
+  	const random = this.getRandomNumberInRange(10000, 100);     
+
+    return {
+        units: {
+            from: "kgs",
+            to: "pounds"
+        },
+        help: "kg * 2 * 1.1",
+        calc: random * 2 * 1.1,
+        randomNumber: random
+    };
   }
 
   //Volumen
-  galToLiter(l) {
-  	let obj = {
-  		calc: l * 4 * 0.95,
-  		from: "gallons",
-  		to: "liters",
-  		help: "l * 4 * 0.95"
-  	};
-  	return obj;
+  galToLiter() {
+  	const random = this.getRandomNumberInRange(1000, 50);     
+
+    return {
+        units: {
+            from: "gallons",
+            to: "liters"
+        },
+        help: "gal / 4 * 1.05",
+        calc: random / 4 * 1.05,
+        randomNumber: random
+    };
   }
-  literToGal(gal) {
-  	let obj = {
-  		calc: gal / 4 * 1.05,
-  		from: "liters",
-  		to: "gallons",
-  		help: "gal / 4 * 1.05"
-  	};
-  	return obj;
+  literToGal() {
+  	const random = this.getRandomNumberInRange(1000, 50);     
+
+    return {
+        units: {
+            from: "liters",
+            to: "gallons"
+        },
+        help: "l * 4 * 0.95",
+        calc: random * 4 * 0.95,
+        randomNumber: random
+    };
   }
  }
 
